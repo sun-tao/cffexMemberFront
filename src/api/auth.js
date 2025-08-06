@@ -13,6 +13,7 @@ const request = async (url, options = {}) => {
   
   try {
     const response = await fetch(`${API_BASE_URL}${url}`, config)
+    console.log(`${API_BASE_URL}${url}`)
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
@@ -28,12 +29,12 @@ const request = async (url, options = {}) => {
 
 // 登录API
 export const loginApi = async (username, password) => {
-  return request('/login', {
+  const params = new URLSearchParams({ username, password }).toString()
+  return request(`/login?${params}`, {
     method: 'POST',
-    body: JSON.stringify({
-      username,
-      password
-    })
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
 }
 

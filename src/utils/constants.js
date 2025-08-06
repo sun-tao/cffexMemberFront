@@ -56,7 +56,8 @@ export const DEPARTMENT_TEXT = {
 export const USER_TYPE = {
   MEMBER: 'member',                           // 会员
   TRADING_STAFF: 'trading_staff',             // 交易部员工
-  CLEARING_STAFF: 'clearing_staff'            // 结算部员工
+  CLEARING_STAFF: 'clearing_staff',           // 结算部员工
+  ADMIN: 'admin'                              // 管理员
 }
 
 // 用户类型文本映射

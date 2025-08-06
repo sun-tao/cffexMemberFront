@@ -10,15 +10,16 @@ export const useAuthStore = defineStore('auth', () => {
   const isLoggedIn = computed(() => !!token.value)
 
   // 登录
-  const login = async (loginData) => {
+  const login = async (username, password) => {
     try {
       // 调用后端登录API
-      const res = await loginApi(loginData.username, loginData.password)
-      // 假设后端返回 { token, userInfo }
-      if (!res.token || !res.userInfo) {
-        throw new Error('登录响应格式错误')
+      const res = await loginApi(username, password)
+      if (res.code !== 0) {
+        throw new Error(res.message || '登录失败')
       }
-      setAuth(res.token, res.userInfo)
+      // 登录成功，设置 token 和 userInfo
+      console.log(res.data)
+      setAuth(res.data.token, res.data.userInfo)
       return res
     } catch (error) {
       console.error('登录失败:', error)
@@ -63,7 +64,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   // 检查是否为管理员用户（交易部或结算部员工）
   const isAdmin = computed(() => {
-    return isTradingStaff.value || isClearingStaff.value
+    return userInfo.value.userType === USER_TYPE.ADMIN
   })
 
   // 检查权限

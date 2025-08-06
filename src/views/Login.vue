@@ -124,16 +124,19 @@ const handleLogin = async () => {
     loading.value = true
 
     // 调用store中的登录方法（已对接后端）
-    await authStore.login({
-      username: loginForm.username,
-      password: loginForm.password,
-      userType: loginForm.userType
-    })
+    await authStore.login(
+      loginForm.username,
+      loginForm.password
+    )
+
+    // 登录成功后更新loginForm.userType为后端返回的userInfo.userType
+    // loginForm.userType = authStore.userInfo.userType
 
     ElMessage.success('登录成功')
-
+    console.log(loginForm.userType)
     // 根据用户类型跳转到不同页面
     if (loginForm.userType === 'member') {
+      console.log('1')
       router.push('/member')
     } else {
       router.push('/admin') // 管理员页面后续添加
