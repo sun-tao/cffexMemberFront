@@ -6,18 +6,22 @@ const request = axios.create({
   baseURL: 'http://localhost:8088/', // 请根据你的后端地址修改
   timeout: 10000,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    "Access-Control-Allow-Credentials": "true"
+  },
+  withCredentials: true,
+
 })
 
 // 请求拦截器
 request.interceptors.request.use(
   config => {
     // 从localStorage获取token
-    const token = localStorage.getItem('token')
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
-    }
+    // const token = localStorage.getItem('token')
+    // if (token) {
+    //   config.headers.Authorization = `Bearer ${token}`
+    // }
     return config
   },
   error => {
@@ -32,7 +36,7 @@ request.interceptors.response.use(
     const { data } = response
     
     // 根据你的接口返回格式，code为0表示成功
-    if (data.code === 0) {
+    if (data.code === 0 || data.code === 200) {
       return data
     } else {
       // 业务错误
@@ -50,7 +54,7 @@ request.interceptors.response.use(
         case 401:
           ElMessage.error('未授权，请重新登录')
           // 清除token并跳转到登录页
-          localStorage.removeItem('token')
+          // localStorage.removeItem('token')
           window.location.href = '/login'
           break
         case 403:

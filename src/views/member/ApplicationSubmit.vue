@@ -264,10 +264,10 @@
       if (!isValid) return
   
       // 检查是否上传了文件
-      if (uploadedFiles.value.length === 0) {
-        ElMessage.warning('请至少上传一个资质证明文件')
-        return
-      }
+      // if (uploadedFiles.value.length === 0) {
+      //   ElMessage.warning('请至少上传一个资质证明文件')
+      //   return
+      // }
   
       // 确认提交
       await ElMessageBox.confirm(
@@ -286,7 +286,7 @@
       const submitData = {
         formData: { ...formData },
         attachments: {
-          qualificationCertificate: fileUploadRef.value?.getUploadedFileIds() || []
+          attachmentId: uploadedFiles.value.map(file => file.id)[0]
         }
       }
   

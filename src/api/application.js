@@ -11,14 +11,14 @@ const USE_MOCK = import.meta.env.DEV
 
 // 提交会员申请
 export const submitApplication = async (data) => {
-  if (USE_MOCK) {
-    // 模拟API调用延迟
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    return mockSubmitResponse
-  }
+  // if (USE_MOCK) {
+  //   // 模拟API调用延迟
+  //   await new Promise(resolve => setTimeout(resolve, 1500))
+  //   return mockSubmitResponse
+  // }
   
   return request({
-    url: '/member/application/submit',
+    url: '/application/submit',
     method: 'POST',
     data: {
       formData: data.formData,

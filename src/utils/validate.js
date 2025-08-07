@@ -90,26 +90,27 @@ export const validateEmail = (rule, value, callback) => {
   
   // 表单验证规则对象
   export const formRules = {
+  
     memberName: [
       { validator: validateCompanyName, trigger: 'blur' }
     ],
     shortName: [
-      { required: true, message: '请输入公司简称', trigger: 'blur' },
+      { required: false, message: '请输入公司简称', trigger: 'blur' },
       { min: 2, max: 50, message: '简称长度在2到50个字符', trigger: 'blur' }
     ],
     englishName: [
       { validator: validateEnglishName, trigger: 'blur' }
     ],
     englishShortName: [
-      { required: true, message: '请输入英文简称', trigger: 'blur' },
+      { required: false, message: '请输入英文简称', trigger: 'blur' },
       { pattern: /^[a-zA-Z\s&()-]+$/, message: '英文简称只能包含英文字母、空格和常用符号', trigger: 'blur' },
       { max: 100, message: '英文简称不能超过100个字符', trigger: 'blur' }
     ],
     memberType: [
-      { required: true, message: '请选择会员类型', trigger: 'change' }
+      { required: false, message: '请选择会员类型', trigger: 'change' }
     ],
     clearingAgentName: [
-      { required: true, message: '请输入结算代理机构名称', trigger: 'blur' },
+      { required: false, message: '请输入结算代理机构名称', trigger: 'blur' },
       { max: 100, message: '结算代理机构名称不能超过100个字符', trigger: 'blur' }
     ],
     address: [
@@ -119,12 +120,15 @@ export const validateEmail = (rule, value, callback) => {
       { validator: validateContactName, trigger: 'blur' }
     ],
     'contact.phone': [
-      { validator: validatePhone, trigger: 'blur' }
+      { validator: validatePhone, trigger: 'blur' },
+      { required: false, message: '请输入手机号码', trigger: 'blur' },
     ],
     'contact.email': [
-      { validator: validateEmail, trigger: 'blur' }
+      { validator: validateEmail, trigger: 'blur' },
+      { required: false, message: '请输入邮箱', trigger: 'blur' },
     ],
     companyIntro: [
-      { validator: validateCompanyIntro, trigger: 'blur' }
+      { validator: validateCompanyIntro, trigger: 'blur' },
+      { required: false, message: '请输入公司简介', trigger: 'blur' },
     ]
   }
