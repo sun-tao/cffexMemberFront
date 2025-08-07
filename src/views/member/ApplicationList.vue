@@ -145,7 +145,7 @@
             </template>
           </el-table-column>
   
-          <el-table-column
+          <!-- <el-table-column
             prop="updatedAt"
             label="最后更新"
             width="180"
@@ -154,7 +154,7 @@
             <template #default="{ row }">
               {{ formatDateTime(row.updatedAt) }}
             </template>
-          </el-table-column>
+          </el-table-column> -->
   
           <el-table-column
             label="操作"

@@ -37,7 +37,7 @@ export const getApplicationList = async (params = {}) => {
   //   let filteredData = [...mockApplicationList.data]
   //   if (params.status) {
   //     filteredData = filteredData.filter(item => item.status === params.status)
-  //   }
+  //   }x
     
   //   return {
   //     ...mockApplicationList,
@@ -72,10 +72,10 @@ export const getApplicationDetail = async (applicationId) => {
   // }
   
   return request({
-    url: '/member/application/detail',
+    url: '/application/queryone',
     method: 'GET',
     params: {
-      applicationId
+      id: applicationId // 修改参数名为id以匹配后端@RequestParam String id
     }
   })
 }

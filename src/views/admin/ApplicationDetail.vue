@@ -281,7 +281,7 @@
                 <el-icon class="file-icon"><Document /></el-icon>
                 <div class="file-details">
                   <div class="file-name">{{ attachment.fileName }}</div>
-                  <div class="file-meta">
+                  <div class="file-meta" v-if="attachment.uploadTime">
                     上传时间：{{ formatDateTime(attachment.uploadTime) }}
                   </div>
                 </div>
@@ -437,6 +437,7 @@
       const applicationId = props.id || route.params.id
       const response = await getApplicationDetailForAdmin(applicationId)
       
+      // 直接使用返回的数据，request 拦截器已经处理了 response.data
       application.value = response
       
     } catch (error) {

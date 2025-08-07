@@ -11,6 +11,7 @@ const request = axios.create({
     "Access-Control-Allow-Credentials": "true"
   },
   withCredentials: true,
+  
 
 })
 
@@ -18,10 +19,17 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
     // 从localStorage获取token
-    // const token = localStorage.getItem('token')
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`
-    // }
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    
+    // 确保params参数正确传递
+    if (config.params) {
+      // 保留params参数
+      config.params = { ...config.params }
+    }
+    
     return config
   },
   error => {

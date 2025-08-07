@@ -245,6 +245,8 @@ export const getApplicationDetailForAdmin = async (applicationId) => {
     method: 'GET',
     params: { applicationId }
   })
+  // 注意：request 拦截器会自动处理 response.data，
+  // 如果 code 为 200，会直接返回 response.data
 }
 
 // 批量审批
