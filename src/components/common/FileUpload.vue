@@ -48,8 +48,8 @@
   import { ref, computed, watch } from 'vue'
   import { ElMessage } from 'element-plus'
   import { Upload, Document, Delete } from '@element-plus/icons-vue'
-  import { uploadFile, deleteUploadedFile } from '@/api/application'
-  
+  import { uploadFile, deleteFile } from '@/api/upload'
+
   // Props
   const props = defineProps({
     modelValue: {
@@ -107,9 +107,12 @@
       progressStatus.value = 'active'
       progressText.value = `正在上传 ${file.name}...`
       
-      const response = await uploadFile(file.raw, (progress) => {
-        uploadProgress.value = progress
-      })
+      // 创建 FormData 对象用于文件上传
+      const formData = new FormData()
+      formData.append('file', file.raw)
+      
+      // 调用后端上传接口
+      const response = await uploadFile(file.raw)
       
       // 上传成功
       progressStatus.value = 'success'
@@ -117,9 +120,9 @@
       
       // 添加到已上传文件列表
       const uploadedFile = {
-        id: response.fileId,
+        id: response.data.id,
         name: file.name,
-        url: response.url
+        url: response.data.filePath
       }
       
       uploadedFiles.value.push(uploadedFile)
@@ -156,7 +159,8 @@
   // 移除已上传文件
   const removeUploadedFile = async (file) => {
     try {
-      await deleteUploadedFile(file.id)
+      // 调用后端删除接口
+      await deleteFile(file.id)
       
       uploadedFiles.value = uploadedFiles.value.filter(f => f.id !== file.id)
       emit('update:modelValue', uploadedFiles.value)
