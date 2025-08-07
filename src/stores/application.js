@@ -37,12 +37,12 @@ export const useApplicationStore = defineStore('application', () => {
 
   // 设置申请列表
   const setApplicationList = (data) => {
-    applicationList.value = data.data || []
+    applicationList.value = data.data.content || []
     pagination.value = {
-      page: data.page || 1,
-      pageSize: data.pageSize || 10,
-      total: data.total || 0,
-      totalPages: data.totalPages || 0
+      page: data.data.currentPage || 1,
+      pageSize: data.data.pageSize || 10,
+      total: data.data.totalElements || 0,
+      totalPages: data.data.totalPages || 0
     }
   }
 

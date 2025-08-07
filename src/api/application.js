@@ -29,25 +29,25 @@ export const submitApplication = async (data) => {
 
 // 获取会员申请列表
 export const getApplicationList = async (params = {}) => {
-  if (USE_MOCK) {
-    // 模拟API调用延迟
-    await new Promise(resolve => setTimeout(resolve, 800))
+  // if (USE_MOCK) {
+  //   // 模拟API调用延迟
+  //   await new Promise(resolve => setTimeout(resolve, 800))
     
-    // 根据状态筛选
-    let filteredData = [...mockApplicationList.data]
-    if (params.status) {
-      filteredData = filteredData.filter(item => item.status === params.status)
-    }
+  //   // 根据状态筛选
+  //   let filteredData = [...mockApplicationList.data]
+  //   if (params.status) {
+  //     filteredData = filteredData.filter(item => item.status === params.status)
+  //   }
     
-    return {
-      ...mockApplicationList,
-      data: filteredData,
-      total: filteredData.length
-    }
-  }
+  //   return {
+  //     ...mockApplicationList,
+  //     data: filteredData,
+  //     total: filteredData.length
+  //   }
+  // }
   
   return request({
-    url: '/member/application/list',
+    url: '/application/queryAll',
     method: 'GET',
     params: {
       pageno: params.page || 1,
@@ -60,16 +60,16 @@ export const getApplicationList = async (params = {}) => {
 
 // 获取申请详情
 export const getApplicationDetail = async (applicationId) => {
-  if (USE_MOCK) {
-    // 模拟API调用延迟
-    await new Promise(resolve => setTimeout(resolve, 600))
+  // if (USE_MOCK) {
+  //   // 模拟API调用延迟
+  //   await new Promise(resolve => setTimeout(resolve, 600))
     
-    // 根据ID返回对应的详情（这里简化处理，都返回同一个）
-    return {
-      ...mockApplicationDetail,
-      applicationId: Number(applicationId)
-    }
-  }
+  //   // 根据ID返回对应的详情（这里简化处理，都返回同一个）
+  //   return {
+  //     ...mockApplicationDetail,
+  //     applicationId: Number(applicationId)
+  //   }
+  // }
   
   return request({
     url: '/member/application/detail',
